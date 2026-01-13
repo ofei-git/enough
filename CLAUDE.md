@@ -15,14 +15,16 @@ A spending awareness Mac app (SwiftUI, macOS 14+) with a "sage & cream" design a
 - **Font Loading**: Source Serif 4 bundled and loading correctly
 - **Max Content Width**: 860px constraint for elegant full-screen appearance
 
-### Typography Reference (matches mockup)
+### Typography Reference
+All display fonts use Source Serif 4 **Light (300)** for an elegant, refined feel.
+
 | Element | Size | Weight |
 |---------|------|--------|
-| Main amount | 64px | Light (300) |
-| Page title | 40px | Regular (400) |
-| Display medium | 36px | Light (300) |
-| Category amount | 26px | Regular (400) |
-| Sidebar badge | 22px | Regular (400) |
+| Main amount | 64px | Light |
+| Page title | 40px | Light |
+| Display medium | 36px | Light |
+| Category amount | 26px | Light |
+| Sidebar badge | 22px | Light |
 
 ## Next Priority: CSV Import
 

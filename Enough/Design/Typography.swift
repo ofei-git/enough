@@ -33,19 +33,19 @@ extension Font {
     static let displayMedium = sourceSerif(size: 36, weight: .light)
 
     /// 40px - Page titles (month headers)
-    static let displayTitle = sourceSerif(size: 40, weight: .regular)
+    static let displayTitle = sourceSerif(size: 40, weight: .light)
 
     /// 28px - Card amounts
     static let displayAmount = sourceSerif(size: 28, weight: .light)
 
     /// 26px - Category amounts
-    static let displayCategory = sourceSerif(size: 26, weight: .regular)
+    static let displayCategory = sourceSerif(size: 26, weight: .light)
 
     /// 24px - Review merchant names, target amounts
-    static let displaySmall = sourceSerif(size: 24, weight: .regular)
+    static let displaySmall = sourceSerif(size: 24, weight: .light)
 
     /// 22px - Sidebar enough badge
-    static let displayBadge = sourceSerif(size: 22, weight: .regular)
+    static let displayBadge = sourceSerif(size: 22, weight: .light)
 
     // MARK: - Heading Fonts (SF Pro)
     // Used for section headers and emphasis
