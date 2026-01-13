@@ -26,26 +26,26 @@ extension Font {
         return Font.custom(fontName, size: size)
     }
 
-    /// 56px - Primary enough number display
-    static let displayLarge = sourceSerif(size: 56, weight: .light)
+    /// 64px - Primary enough number display (main amount)
+    static let displayLarge = sourceSerif(size: 64, weight: .light)
 
     /// 36px - Secondary display text
     static let displayMedium = sourceSerif(size: 36, weight: .light)
 
-    /// 32px - Page titles
-    static let displayTitle = sourceSerif(size: 32, weight: .light)
+    /// 40px - Page titles (month headers)
+    static let displayTitle = sourceSerif(size: 40, weight: .regular)
 
     /// 28px - Card amounts
     static let displayAmount = sourceSerif(size: 28, weight: .light)
 
     /// 26px - Category amounts
-    static let displayCategory = sourceSerif(size: 26, weight: .light)
+    static let displayCategory = sourceSerif(size: 26, weight: .regular)
 
     /// 24px - Review merchant names, target amounts
-    static let displaySmall = sourceSerif(size: 24, weight: .light)
+    static let displaySmall = sourceSerif(size: 24, weight: .regular)
 
     /// 22px - Sidebar enough badge
-    static let displayBadge = sourceSerif(size: 22, weight: .light)
+    static let displayBadge = sourceSerif(size: 22, weight: .regular)
 
     // MARK: - Heading Fonts (SF Pro)
     // Used for section headers and emphasis
