@@ -3,6 +3,12 @@ import SwiftData
 
 @main
 struct EnoughApp: App {
+
+    init() {
+        // Register custom fonts
+        FontRegistration.registerFonts()
+    }
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Account.self,

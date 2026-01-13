@@ -76,6 +76,9 @@ enum Layout {
     /// Sidebar width
     static let sidebarWidth: CGFloat = 240
 
+    /// Maximum content width for main area (prevents stretching on large screens)
+    static let maxContentWidth: CGFloat = 860
+
     /// Minimum window width
     static let minWindowWidth: CGFloat = 900
 

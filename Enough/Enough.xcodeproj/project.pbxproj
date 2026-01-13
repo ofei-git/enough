@@ -30,6 +30,7 @@
 		B37377A7B5B9F8DF02858E4F /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45324EC3B79E85B5CF0DD246 /* TransactionRow.swift */; };
 		BDE698E37D48F53C117B3475 /* Spacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E881F915DFF8E65D955E318 /* Spacing.swift */; };
 		BE48B9D57C69E6AE7565598F /* EnoughApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0D0D1C84BBD66CA21F3D38 /* EnoughApp.swift */; };
+		D416810841987DF7C6A12FED /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = BCC1101021EA72A88B27320C /* Fonts */; };
 		D75C25D821FB372521A9CDFB /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE292974285F0F9F93016A7 /* Category.swift */; };
 		DCF08BD63C89A5ED6101E8E4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547527D5994D00CCBDC8EF46 /* Settings.swift */; };
 		EB91AF63E82DBF5A99519668 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6278121D34770DDF6202F12 /* ProgressRing.swift */; };
@@ -61,6 +62,7 @@
 		A6278121D34770DDF6202F12 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		ADB381F8620741DD315F21EA /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		B776F3B67E33018297966370 /* Enough.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enough.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCC1101021EA72A88B27320C /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = Resources/Fonts; sourceTree = SOURCE_ROOT; };
 		BF2C364BB666FB92619E0330 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		D78F33A0984EF172B93C3895 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		E37CC000C17BD40965918BDF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		1FC276CE63787B1606166C3E = {
 			isa = PBXGroup;
 			children = (
+				BCC1101021EA72A88B27320C /* Fonts */,
 				5CD8E5EE41EE0F96BB8246F2 /* Components */,
 				D798FC7F38664F992E74F9A9 /* Design */,
 				083DF08C4A17D1D8B5847CFC /* Enough */,
@@ -269,6 +272,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D416810841987DF7C6A12FED /* Fonts in Resources */,
 				3C9D2273FF6B0607137D5A12 /* SourceSerif4-Light.ttf in Resources */,
 				7DB0B1552AE6BEC8A775153B /* SourceSerif4-Medium.ttf in Resources */,
 				5A828E446457F5B63DE5BD4D /* SourceSerif4-Regular.ttf in Resources */,

@@ -8,26 +8,44 @@ extension Font {
     // MARK: - Display Fonts (Source Serif 4)
     // Used for large numbers and headings - adds warmth and sophistication
 
+    /// Helper to create Source Serif 4 font with fallback to Georgia
+    private static func sourceSerif(size: CGFloat, weight: Font.Weight = .light) -> Font {
+        // Try the PostScript name first, then family name with weight
+        // The font should be registered via Info.plist ATSApplicationFontsPath
+        let fontName: String
+        switch weight {
+        case .light:
+            fontName = "SourceSerif4-Light"
+        case .regular:
+            fontName = "SourceSerif4-Regular"
+        case .medium:
+            fontName = "SourceSerif4-Medium"
+        default:
+            fontName = "SourceSerif4-Regular"
+        }
+        return Font.custom(fontName, size: size)
+    }
+
     /// 56px - Primary enough number display
-    static let displayLarge = Font.custom("SourceSerif4-Light", size: 56, relativeTo: .largeTitle)
+    static let displayLarge = sourceSerif(size: 56, weight: .light)
 
     /// 36px - Secondary display text
-    static let displayMedium = Font.custom("SourceSerif4-Light", size: 36, relativeTo: .title)
+    static let displayMedium = sourceSerif(size: 36, weight: .light)
 
     /// 32px - Page titles
-    static let displayTitle = Font.custom("SourceSerif4-Regular", size: 32, relativeTo: .title)
+    static let displayTitle = sourceSerif(size: 32, weight: .light)
 
     /// 28px - Card amounts
-    static let displayAmount = Font.custom("SourceSerif4-Regular", size: 28, relativeTo: .title2)
+    static let displayAmount = sourceSerif(size: 28, weight: .light)
 
     /// 26px - Category amounts
-    static let displayCategory = Font.custom("SourceSerif4-Regular", size: 26, relativeTo: .title2)
+    static let displayCategory = sourceSerif(size: 26, weight: .light)
 
     /// 24px - Review merchant names, target amounts
-    static let displaySmall = Font.custom("SourceSerif4-Regular", size: 24, relativeTo: .title3)
+    static let displaySmall = sourceSerif(size: 24, weight: .light)
 
     /// 22px - Sidebar enough badge
-    static let displayBadge = Font.custom("SourceSerif4-Regular", size: 22, relativeTo: .title3)
+    static let displayBadge = sourceSerif(size: 22, weight: .light)
 
     // MARK: - Heading Fonts (SF Pro)
     // Used for section headers and emphasis
@@ -79,6 +97,26 @@ extension Font {
 
     /// 12px - Raw descriptions, account balances
     static let monoSmall = Font.system(size: 12, design: .monospaced)
+}
+
+// MARK: - Font Registration (call on app launch)
+
+import AppKit
+
+enum FontRegistration {
+    static func registerFonts() {
+        let fontNames = [
+            "SourceSerif4-Light",
+            "SourceSerif4-Regular",
+            "SourceSerif4-Medium"
+        ]
+
+        for fontName in fontNames {
+            if let fontURL = Bundle.main.url(forResource: fontName, withExtension: "ttf", subdirectory: "Fonts") {
+                CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, nil)
+            }
+        }
+    }
 }
 
 // MARK: - Text Styles

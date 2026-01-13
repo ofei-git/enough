@@ -27,6 +27,9 @@ targets:
         excludes:
           - project.yml
           - "*.xcodeproj"
+      - path: Resources/Fonts
+        type: folder
+        buildPhase: resources
     settings:
       base:
         INFOPLIST_FILE: Resources/Info.plist

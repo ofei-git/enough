@@ -63,8 +63,9 @@ struct DashboardView: View {
                 // Recent Transactions
                 RecentTransactionsCard(transactions: recentTransactions)
             }
-            .padding(.horizontal, Spacing.contentPadding)
+            .frame(maxWidth: Layout.maxContentWidth, alignment: .leading)
             .padding(.vertical, Spacing.xxxxl)
+            .frame(maxWidth: .infinity) // Center the constrained content
         }
         .background(Color.enoughCanvas)
         .sheet(isPresented: $showingImport) {
