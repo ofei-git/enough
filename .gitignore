@@ -1,0 +1,48 @@
+# Xcode
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Build artifacts
+build/
+*.o
+*.a
+*.dylib
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+
+# CocoaPods (if used)
+Pods/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Claude Code
+.claude/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Downloaded font packages (keep only the fonts in Resources/Fonts)
+Fonts/

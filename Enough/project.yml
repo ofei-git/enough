@@ -1,0 +1,63 @@
+name: Enough
+options:
+  bundleIdPrefix: com.ofeistudios
+  deploymentTarget:
+    macOS: "14.0"
+  xcodeVersion: "15.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    PRODUCT_NAME: Enough
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""  # Set your team ID
+    ENABLE_HARDENED_RUNTIME: YES
+    CODE_SIGN_ENTITLEMENTS: Resources/Enough.entitlements
+
+targets:
+  Enough:
+    type: application
+    platform: macOS
+    sources:
+      - path: .
+        excludes:
+          - project.yml
+          - "*.xcodeproj"
+    settings:
+      base:
+        INFOPLIST_FILE: Resources/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.ofeistudios.enough
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        LD_RUNPATH_SEARCH_PATHS: $(inherited) @executable_path/../Frameworks
+        COMBINE_HIDPI_IMAGES: YES
+    entitlements:
+      path: Resources/Enough.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-write: true
+        # CloudKit entitlements - uncomment when Apple Developer account is ready
+        # com.apple.developer.icloud-container-identifiers:
+        #   - iCloud.com.ofeistudios.enough
+        # com.apple.developer.icloud-services:
+        #   - CloudKit
+        # com.apple.developer.ubiquity-kvstore-identifier: $(TeamIdentifierPrefix)com.ofeistudios.enough
+
+schemes:
+  Enough:
+    build:
+      targets:
+        Enough: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

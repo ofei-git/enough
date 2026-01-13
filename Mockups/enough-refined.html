@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enough — Refined Design</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500&display=swap');
+
+        :root {
+            /* Refined palette - more sophisticated */
+            --bg-canvas: #FAF8F5;
+            --bg-surface: #FFFFFF;
+            --bg-sidebar: #F5F2EE;
+            --bg-hover: rgba(122, 154, 126, 0.08);
+            --bg-active: rgba(122, 154, 126, 0.12);
+
+            --sage-50: #F0F5F1;
+            --sage-100: #DCE8DE;
+            --sage-200: #B8D4BC;
+            --sage-400: #7A9A7E;
+            --sage-500: #5C7D60;
+            --sage-600: #4A6550;
+
+            --warm-100: #FDF6EE;
+            --warm-200: #F5E6D8;
+            --warm-400: #C49E7A;
+            --warm-500: #A67D54;
+
+            --text-primary: #2C3A2E;
+            --text-secondary: #5C6B5E;
+            --text-tertiary: #8A9A8C;
+            --text-muted: #B8C4BA;
+
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --border-default: rgba(0, 0, 0, 0.08);
+
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+            --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+            background: #E8E4E0;
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 60px;
+        }
+
+        /* Typography scale */
+        .display-lg {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 56px;
+            font-weight: 300;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        .display-md {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 36px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .heading-lg {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .heading-md {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+
+        .body-md {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .body-sm {
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Page layout */
+        .page-header {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .page-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--sage-400);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .page-title {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-description {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.6;
+        }
+
+        /* ==================== */
+        /* MAC WINDOW           */
+        /* ==================== */
+
+        .mockup-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .mac-window {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-elevated);
+        }
+
+        .window-titlebar {
+            display: flex;
+            align-items: center;
+            height: 52px;
+            padding: 0 20px;
+            background: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .traffic-light.close { background: #FF5F57; }
+        .traffic-light.minimize { background: #FFBD2E; }
+        .traffic-light.maximize { background: #28C840; }
+
+        .window-title {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .window-content {
+            display: flex;
+            min-height: 680px;
+        }
+
+        /* ==================== */
+        /* SIDEBAR              */
+        /* ==================== */
+
+        .sidebar {
+            width: 240px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-subtle);
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-section {
+            margin-bottom: 28px;
+        }
+
+        .sidebar-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 0 12px;
+            margin-bottom: 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--sage-400);
+            color: white;
+        }
+
+        .nav-item.active .nav-icon {
+            opacity: 1;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .nav-item.active svg {
+            stroke: white;
+        }
+
+        /* Account items */
+        .account-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .account-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .account-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .account-name {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .account-balance {
+            font-size: 12px;
+            font-family: 'SF Mono', ui-monospace, monospace;
+            color: var(--text-tertiary);
+        }
+
+        /* Sidebar footer */
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .enough-badge {
+            background: var(--warm-100);
+            border: 1px solid var(--warm-200);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+        }
+
+        .enough-badge-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--warm-500);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .enough-badge-value {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+
+        .enough-badge-sub {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        /* ==================== */
+        /* MAIN CONTENT         */
+        /* ==================== */
+
+        .main-content {
+            flex: 1;
+            background: var(--bg-canvas);
+            padding: 32px 40px;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 36px;
+        }
+
+        .header-text h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .header-text .subtitle {
+            font-size: 14px;
+            color: var(--text-tertiary);
+        }
+
+        .import-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--sage-400);
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(122, 154, 126, 0.25);
+        }
+
+        .import-button:hover {
+            background: var(--sage-500);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(122, 154, 126, 0.3);
+        }
+
+        .import-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ==================== */
+        /* THE ENOUGH METER     */
+        /* ==================== */
+
+        .enough-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle gradient accent */
+        .enough-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sage-400), var(--sage-200));
+            opacity: 0;
+        }
+
+        .enough-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .enough-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .enough-period {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* The main amount display */
+        .enough-display {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .current-amount {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 64px;
+            font-weight: 300;
+            color: var(--sage-500);
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .target-display {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .target-label {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .target-amount {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 24px;
+            font-weight: 300;
+            color: var(--text-tertiary);
+        }
+
+        /* Circular progress indicator - signature element */
+        .progress-ring-container {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .progress-ring svg {
+            transform: rotate(-90deg);
+            width: 120px;
+            height: 120px;
+        }
+
+        .progress-ring-bg {
+            fill: none;
+            stroke: var(--sage-100);
+            stroke-width: 8;
+        }
+
+        .progress-ring-fill {
+            fill: none;
+            stroke: url(#sage-gradient);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 339.3;
+            stroke-dashoffset: 122;
+            transition: stroke-dashoffset 0.6s ease;
+        }
+
+        .progress-ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percentage {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .progress-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        .progress-details {
+            flex: 1;
+        }
+
+        .progress-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--sage-400);
+            border-radius: 50%;
+        }
+
+        .status-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--sage-500);
+        }
+
+        .progress-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 320px;
+        }
+
+        .remaining-amount {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 12px;
+        }
+
+        .remaining-amount strong {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ==================== */
+        /* CATEGORY CARDS       */
+        /* ==================== */
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .category-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .category-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-icon-wrapper svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .category-trend {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .category-trend.down {
+            background: var(--sage-50);
+            color: var(--sage-500);
+        }
+
+        .category-trend.up {
+            background: var(--warm-100);
+            color: var(--warm-500);
+        }
+
+        .category-trend.neutral {
+            background: var(--bg-canvas);
+            color: var(--text-tertiary);
+        }
+
+        .category-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .category-amount {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 400;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .category-compare {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* ==================== */
+        /* TRANSACTIONS         */
+        /* ==================== */
+
+        .transactions-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+        }
+
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .transactions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .transactions-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--sage-400);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .transactions-link:hover {
+            color: var(--sage-500);
+        }
+
+        .transaction-row {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background 0.15s;
+        }
+
+        .transaction-row:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-row:hover {
+            background: var(--bg-canvas);
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--bg-canvas);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+        }
+
+        .transaction-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-tertiary);
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-merchant {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .transaction-category {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .transaction-meta {
+            text-align: right;
+        }
+
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'SF Mono', ui-monospace, monospace;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .transaction-date {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ==================== */
+        /* WEEKLY REVIEW        */
+        /* ==================== */
+
+        .review-window .main-content {
+            padding: 0;
+        }
+
+        .review-hero {
+            background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-canvas) 100%);
+            padding: 48px 40px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .review-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--warm-100);
+            border: 1px solid var(--warm-200);
+            color: var(--warm-500);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .review-title {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .review-subtitle {
+            font-size: 15px;
+            color: var(--text-tertiary);
+        }
+
+        .review-stats {
+            display: flex;
+            justify-content: center;
+            gap: 64px;
+            padding: 28px 40px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-value.highlight {
+            color: var(--sage-500);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .review-body {
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .inbox-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .inbox-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--sage-100);
+        }
+
+        .progress-dot.active {
+            background: var(--sage-400);
+        }
+
+        .progress-dot.complete {
+            background: var(--sage-400);
+        }
+
+        .inbox-count {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        /* Review Card - the main categorization UI */
+        .review-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .review-card-header {
+            padding: 28px 32px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .review-tx-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .review-tx-merchant {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .review-tx-raw {
+            font-size: 12px;
+            font-family: 'SF Mono', ui-monospace, monospace;
+            color: var(--text-muted);
+            background: var(--bg-canvas);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .review-tx-amount {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--text-primary);
+        }
+
+        .review-card-body {
+            padding: 28px 32px;
+        }
+
+        .suggestion-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        /* Category selection - signature interaction */
+        .category-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .category-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--bg-canvas);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .category-option:hover {
+            background: var(--sage-50);
+            border-color: var(--sage-200);
+        }
+
+        .category-option.suggested {
+            background: var(--sage-50);
+            border-color: var(--sage-400);
+        }
+
+        .category-option.suggested:hover {
+            background: var(--sage-100);
+        }
+
+        .category-option-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-option-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .category-option-text {
+            flex: 1;
+        }
+
+        .category-option-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .category-option-hint {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .confidence-badge {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--sage-500);
+            background: var(--sage-100);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .more-categories {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .more-categories:hover {
+            color: var(--sage-500);
+        }
+
+        .review-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background: var(--bg-canvas);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .skip-button {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .skip-button:hover {
+            color: var(--text-secondary);
+        }
+
+        .remember-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .remember-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 26px;
+            background: var(--sage-400);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            transition: right 0.2s;
+        }
+
+        /* ==================== */
+        /* DESIGN NOTES         */
+        /* ==================== */
+
+        .notes-section {
+            max-width: 1000px;
+            margin: 80px auto 0;
+            padding: 48px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-card);
+        }
+
+        .notes-title {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .note-card {
+            background: var(--bg-canvas);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .note-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--sage-500);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .note-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* SVG definitions */
+        .svg-defs {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions -->
+    <svg class="svg-defs">
+        <defs>
+            <linearGradient id="sage-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#9BC49E"/>
+                <stop offset="100%" style="stop-color:#7A9A7E"/>
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <header class="page-header">
+        <div class="page-label">Enough — Refined Design</div>
+        <h1 class="page-title">Award-Winning Ambition</h1>
+        <p class="page-description">Pushing toward Things 3-level craft. Custom iconography, signature interactions, considered typography, and depth through layering. Female-forward but universally appealing.</p>
+    </header>
+
+    <!-- ==================== -->
+    <!-- DASHBOARD            -->
+    <!-- ==================== -->
+    <section class="mockup-section">
+        <div class="section-label">Mac App — Dashboard</div>
+
+        <div class="mac-window">
+            <div class="window-titlebar">
+                <div class="traffic-lights">
+                    <div class="traffic-light close"></div>
+                    <div class="traffic-light minimize"></div>
+                    <div class="traffic-light maximize"></div>
+                </div>
+                <div class="window-title">Enough</div>
+                <div style="width: 52px;"></div>
+            </div>
+
+            <div class="window-content">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="nav-item active">
+                            <span class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                    <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                    <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                    <rect x="14" y="14" width="7" height="7" rx="1"/>
+                                </svg>
+                            </span>
+                            Overview
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                    <line x1="3" y1="12" x2="21" y2="12"/>
+                                    <line x1="3" y1="18" x2="21" y2="18"/>
+                                </svg>
+                            </span>
+                            Transactions
+                        </div>
+                        <div class="nav-item">
+                            <span class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </span>
+                            Trends
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Accounts</div>
+                        <div class="account-item">
+                            <span class="account-indicator" style="background: var(--sage-400)"></span>
+                            <span class="account-name">ING Joint</span>
+                            <span class="account-balance">$12,450</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-indicator" style="background: var(--warm-400)"></span>
+                            <span class="account-name">ING Personal</span>
+                            <span class="account-balance">$3,210</span>
+                        </div>
+                        <div class="account-item">
+                            <span class="account-indicator" style="background: #9890B0"></span>
+                            <span class="account-name">Up Savings</span>
+                            <span class="account-balance">$8,500</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-footer">
+                        <div class="enough-badge">
+                            <div class="enough-badge-label">Your Enough</div>
+                            <div class="enough-badge-value">$85,000</div>
+                            <div class="enough-badge-sub">per year</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <div class="content-header">
+                        <div class="header-text">
+                            <h1>January 2026</h1>
+                            <div class="subtitle">Week 2 of 4 · 12 days remaining</div>
+                        </div>
+                        <button class="import-button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Import
+                        </button>
+                    </div>
+
+                    <!-- The Enough Card -->
+                    <div class="enough-card">
+                        <div class="enough-header">
+                            <span class="enough-title">This Month</span>
+                            <span class="enough-period">Monthly target: $7,083</span>
+                        </div>
+
+                        <div class="enough-display">
+                            <span class="current-amount">$4,847</span>
+                            <div class="target-display">
+                                <span class="target-label">of your monthly enough</span>
+                                <span class="target-amount">$7,083</span>
+                            </div>
+                        </div>
+
+                        <div class="progress-ring-container">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 120 120">
+                                    <circle class="progress-ring-bg" cx="60" cy="60" r="54"/>
+                                    <circle class="progress-ring-fill" cx="60" cy="60" r="54"/>
+                                </svg>
+                                <div class="progress-ring-text">
+                                    <div class="progress-percentage">68%</div>
+                                    <div class="progress-label">used</div>
+                                </div>
+                            </div>
+
+                            <div class="progress-details">
+                                <div class="progress-status">
+                                    <span class="status-dot"></span>
+                                    <span class="status-text">On track</span>
+                                </div>
+                                <p class="progress-message">At this pace, you'll finish January about $890 under your enough number.</p>
+                                <p class="remaining-amount"><strong>$2,236</strong> remaining this month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="categories-grid">
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon-wrapper" style="background: #FDEAE8;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#D06050" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                        <polyline points="9 22 9 12 15 12 15 22"/>
+                                    </svg>
+                                </div>
+                                <span class="category-trend neutral">—</span>
+                            </div>
+                            <div class="category-name">Housing</div>
+                            <div class="category-amount">$2,100</div>
+                            <div class="category-compare">Same as usual</div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon-wrapper" style="background: var(--sage-50);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage-500)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                        <line x1="3" y1="6" x2="21" y2="6"/>
+                                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                                    </svg>
+                                </div>
+                                <span class="category-trend down">↓ 12%</span>
+                            </div>
+                            <div class="category-name">Groceries</div>
+                            <div class="category-amount">$687</div>
+                            <div class="category-compare">vs $780 last month</div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon-wrapper" style="background: var(--warm-100);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="var(--warm-500)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                        <line x1="6" y1="1" x2="6" y2="4"/>
+                                        <line x1="10" y1="1" x2="10" y2="4"/>
+                                        <line x1="14" y1="1" x2="14" y2="4"/>
+                                    </svg>
+                                </div>
+                                <span class="category-trend up">↑ 23%</span>
+                            </div>
+                            <div class="category-name">Dining</div>
+                            <div class="category-amount">$412</div>
+                            <div class="category-compare">vs $335 last month</div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions -->
+                    <div class="transactions-card">
+                        <div class="transactions-header">
+                            <span class="transactions-title">Recent</span>
+                            <a href="#" class="transactions-link">See all →</a>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                    <line x1="3" y1="6" x2="21" y2="6"/>
+                                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                                </svg>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">Coles Supermarket</div>
+                                <div class="transaction-category">Groceries</div>
+                            </div>
+                            <div class="transaction-meta">
+                                <div class="transaction-amount">-$127.45</div>
+                                <div class="transaction-date">Today</div>
+                            </div>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                    <line x1="6" y1="1" x2="6" y2="4"/>
+                                    <line x1="10" y1="1" x2="10" y2="4"/>
+                                    <line x1="14" y1="1" x2="14" y2="4"/>
+                                </svg>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">Frankie's Coffee House</div>
+                                <div class="transaction-category">Dining</div>
+                            </div>
+                            <div class="transaction-meta">
+                                <div class="transaction-amount">-$8.50</div>
+                                <div class="transaction-date">Today</div>
+                            </div>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">BP Service Station</div>
+                                <div class="transaction-category">Transport</div>
+                            </div>
+                            <div class="transaction-meta">
+                                <div class="transaction-amount">-$89.30</div>
+                                <div class="transaction-date">Yesterday</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- WEEKLY REVIEW        -->
+    <!-- ==================== -->
+    <section class="mockup-section">
+        <div class="section-label">Mac App — Weekly Review</div>
+
+        <div class="mac-window review-window">
+            <div class="window-titlebar">
+                <div class="traffic-lights">
+                    <div class="traffic-light close"></div>
+                    <div class="traffic-light minimize"></div>
+                    <div class="traffic-light maximize"></div>
+                </div>
+                <div class="window-title">Weekly Review</div>
+                <div style="width: 52px;"></div>
+            </div>
+
+            <div class="window-content" style="flex-direction: column;">
+                <div class="review-hero">
+                    <div class="review-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        January 6–12
+                    </div>
+                    <h2 class="review-title">Your Week in Review</h2>
+                    <p class="review-subtitle">47 transactions imported from ING Joint</p>
+                </div>
+
+                <div class="review-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">$1,243</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">43</div>
+                        <div class="stat-label">Auto-Categorized</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value highlight">4</div>
+                        <div class="stat-label">Need Review</div>
+                    </div>
+                </div>
+
+                <div class="review-body">
+                    <div class="inbox-header">
+                        <span class="inbox-title">Categorize</span>
+                        <div class="inbox-progress">
+                            <div class="progress-dots">
+                                <div class="progress-dot active"></div>
+                                <div class="progress-dot"></div>
+                                <div class="progress-dot"></div>
+                                <div class="progress-dot"></div>
+                            </div>
+                            <span class="inbox-count">1 of 4</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-card-header">
+                            <div class="review-tx-top">
+                                <div>
+                                    <div class="review-tx-merchant">Pioneer Honesty Box</div>
+                                    <div class="review-tx-raw">PIONEER HONESTY BOX TASMANIA AU</div>
+                                </div>
+                                <div class="review-tx-amount">-$12.00</div>
+                            </div>
+                        </div>
+
+                        <div class="review-card-body">
+                            <div class="suggestion-label">Choose a category</div>
+
+                            <div class="category-selector">
+                                <div class="category-option suggested">
+                                    <div class="category-option-icon" style="background: var(--sage-100);">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage-500)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                            <line x1="3" y1="6" x2="21" y2="6"/>
+                                            <path d="M16 10a4 4 0 0 1-8 0"/>
+                                        </svg>
+                                    </div>
+                                    <div class="category-option-text">
+                                        <div class="category-option-name">Groceries</div>
+                                        <div class="category-option-hint">Food shopping, supermarkets</div>
+                                    </div>
+                                    <span class="confidence-badge">Suggested</span>
+                                </div>
+
+                                <div class="category-option">
+                                    <div class="category-option-icon" style="background: #F3E8FF;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="9" cy="21" r="1"/>
+                                            <circle cx="20" cy="21" r="1"/>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="category-option-text">
+                                        <div class="category-option-name">Shopping</div>
+                                        <div class="category-option-hint">General retail purchases</div>
+                                    </div>
+                                </div>
+
+                                <div class="category-option">
+                                    <div class="category-option-icon" style="background: var(--warm-100);">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="var(--warm-500)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                            <line x1="6" y1="1" x2="6" y2="4"/>
+                                            <line x1="10" y1="1" x2="10" y2="4"/>
+                                            <line x1="14" y1="1" x2="14" y2="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="category-option-text">
+                                        <div class="category-option-name">Dining</div>
+                                        <div class="category-option-hint">Restaurants, cafes, takeaway</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="more-categories">More categories...</div>
+                        </div>
+
+                        <div class="review-card-footer">
+                            <button class="skip-button">Skip for now</button>
+                            <label class="remember-toggle">
+                                <span class="remember-text">Always categorize this way</span>
+                                <div class="toggle-switch"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- DESIGN NOTES         -->
+    <!-- ==================== -->
+    <div class="notes-section">
+        <h3 class="notes-title">Design Notes</h3>
+
+        <div class="notes-grid">
+            <div class="note-card">
+                <div class="note-label">Typography</div>
+                <div class="note-text">Source Serif 4 for display numbers and headings—adds warmth and sophistication. SF Pro for body text. The contrast between serif display and sans-serif UI creates visual interest while maintaining readability.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Custom Iconography</div>
+                <div class="note-text">Hand-picked SVG icons with 1.5px stroke weight. Each category has a distinct color-coded icon container. No emoji. Icons are simple, geometric, and feel crafted—similar to Things 3's approach.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Signature Element: Progress Ring</div>
+                <div class="note-text">The circular progress indicator is a signature element—more distinctive than a bar. Shows percentage used with subtle gradient fill. Creates visual anchor for the enough meter. Inspired by Activity Rings but softer.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Depth & Layering</div>
+                <div class="note-text">Multiple shadow levels create hierarchy. Cards float on canvas. Hover states lift cards slightly. The sidebar has subtle texture. Everything feels considered and intentional.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Category Selection</div>
+                <div class="note-text">Full-width options instead of small chips. Each option shows icon, name, and hint. Border highlight on suggested and hover. This interaction is central to the weekly ritual—it needs to feel substantial.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">The Enough Badge</div>
+                <div class="note-text">Always visible in sidebar footer. Warm-toned container differentiates it from navigation. This is the anchor—the number that contextualizes everything. Persistent but not dominant.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

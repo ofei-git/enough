@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enough — Mac Design Exploration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+            background: #F5F5F7;
+            color: #1D1D1F;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            padding: 40px;
+        }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .page-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #86868B;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .page-description {
+            font-size: 17px;
+            color: #515154;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        /* ==================== */
+        /* COLOR PALETTES       */
+        /* ==================== */
+
+        .palette-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #86868B;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .palettes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .palette-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .palette-preview {
+            height: 200px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .palette-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .palette-amount {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: -1px;
+        }
+
+        .palette-label {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .palette-swatches {
+            display: flex;
+            gap: 12px;
+            padding: 20px 24px;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .swatch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .swatch-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+        }
+
+        .swatch-label {
+            font-size: 10px;
+            color: #86868B;
+        }
+
+        .palette-info {
+            padding: 20px 24px;
+            background: #FAFAFA;
+        }
+
+        .palette-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .palette-desc {
+            font-size: 13px;
+            color: #515154;
+            line-height: 1.5;
+        }
+
+        /* Palette 1: Sage & Cream */
+        .palette-sage {
+            background: linear-gradient(135deg, #FFFBF5 0%, #FDF9F3 100%);
+            color: #3D4A3E;
+        }
+        .palette-sage .palette-amount { color: #7A9A7E; }
+        .palette-sage .palette-label { color: #8B9A8C; }
+
+        /* Palette 2: Blush & Warmth */
+        .palette-blush {
+            background: linear-gradient(135deg, #FFF9F7 0%, #FDF5F3 100%);
+            color: #5C4A4A;
+        }
+        .palette-blush .palette-amount { color: #C4918A; }
+        .palette-blush .palette-label { color: #A08080; }
+
+        /* Palette 3: Lavender & Soft */
+        .palette-lavender {
+            background: linear-gradient(135deg, #F9F8FC 0%, #F5F3F9 100%);
+            color: #4A4A5C;
+        }
+        .palette-lavender .palette-amount { color: #9890B0; }
+        .palette-lavender .palette-label { color: #8A8A9A; }
+
+        /* Palette 4: Warm Sand */
+        .palette-sand {
+            background: linear-gradient(135deg, #FFFCF8 0%, #FBF7F0 100%);
+            color: #5C5245;
+        }
+        .palette-sand .palette-amount { color: #C49E7A; }
+        .palette-sand .palette-label { color: #9A8A7A; }
+
+        /* ==================== */
+        /* MAC WINDOW MOCKUP    */
+        /* ==================== */
+
+        .mockup-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .mac-window {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .window-titlebar {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: linear-gradient(180deg, #FAFAFA 0%, #F0F0F0 100%);
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .traffic-light.red { background: #FF5F57; }
+        .traffic-light.yellow { background: #FFBD2E; }
+        .traffic-light.green { background: #28C840; }
+
+        .window-title {
+            flex: 1;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            color: #515154;
+        }
+
+        .window-content {
+            display: flex;
+            min-height: 600px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: #F8F6F2;
+            border-right: 1px solid #E8E4DC;
+            padding: 16px 12px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8A8680;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #5C5850;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(0,0,0,0.04);
+        }
+
+        .sidebar-item.active {
+            background: #7A9A7E;
+            color: white;
+        }
+
+        .sidebar-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-account {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #5C5850;
+        }
+
+        .account-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .account-balance {
+            margin-left: auto;
+            font-size: 12px;
+            color: #8A8680;
+            font-family: 'SF Mono', monospace;
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            background: #FFFBF5;
+            padding: 32px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .greeting h2 {
+            font-size: 26px;
+            font-weight: 600;
+            color: #3D4A3E;
+            margin-bottom: 4px;
+        }
+
+        .greeting .subtitle {
+            font-size: 14px;
+            color: #8B9A8C;
+        }
+
+        .import-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #7A9A7E;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .import-btn:hover {
+            background: #6B8B6F;
+            transform: translateY(-1px);
+        }
+
+        /* Enough Card */
+        .enough-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .enough-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .enough-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #8B9A8C;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .enough-period {
+            font-size: 12px;
+            color: #A8B0A8;
+        }
+
+        .enough-numbers {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .current-amount {
+            font-size: 48px;
+            font-weight: 300;
+            color: #7A9A7E;
+            letter-spacing: -2px;
+        }
+
+        .target-amount {
+            font-size: 18px;
+            color: #A8B0A8;
+        }
+
+        .target-amount span {
+            color: #C8D0C8;
+        }
+
+        /* Progress bar - organic/soft */
+        .progress-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #F0EDE8;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9BC49E, #7A9A7E);
+            border-radius: 4px;
+            width: 62%;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .progress-status {
+            color: #7A9A7E;
+            font-weight: 500;
+        }
+
+        .progress-remaining {
+            color: #A8B0A8;
+        }
+
+        /* Categories */
+        .categories-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #5C5850;
+        }
+
+        .category-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .category-trend {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .category-trend.down {
+            background: #E8F5E9;
+            color: #4A7C4F;
+        }
+
+        .category-trend.up {
+            background: #FFF3E0;
+            color: #B57A3A;
+        }
+
+        .category-amount {
+            font-size: 22px;
+            font-weight: 500;
+            color: #3D4A3E;
+            margin-bottom: 4px;
+        }
+
+        .category-compare {
+            font-size: 12px;
+            color: #A8B0A8;
+        }
+
+        /* Transactions */
+        .transactions-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            overflow: hidden;
+        }
+
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #F0EDE8;
+        }
+
+        .transactions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5C5850;
+        }
+
+        .transactions-link {
+            font-size: 12px;
+            color: #7A9A7E;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .transaction-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            border-bottom: 1px solid #F8F6F2;
+        }
+
+        .transaction-row:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #F8F6F2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 14px;
+        }
+
+        .transaction-details {
+            flex: 1;
+        }
+
+        .transaction-merchant {
+            font-size: 14px;
+            font-weight: 500;
+            color: #3D4A3E;
+            margin-bottom: 2px;
+        }
+
+        .transaction-category {
+            font-size: 12px;
+            color: #A8B0A8;
+        }
+
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: 500;
+            color: #5C5850;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .transaction-date {
+            font-size: 11px;
+            color: #C8D0C8;
+            margin-left: 12px;
+        }
+
+        /* ==================== */
+        /* WEEKLY REVIEW MAC    */
+        /* ==================== */
+
+        .review-content {
+            background: #FFFBF5;
+            min-height: 600px;
+        }
+
+        .review-hero {
+            text-align: center;
+            padding: 48px 32px 32px;
+            border-bottom: 1px solid #F0EDE8;
+        }
+
+        .review-week-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #C49E7A;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .review-title {
+            font-size: 28px;
+            font-weight: 500;
+            color: #3D4A3E;
+            margin-bottom: 8px;
+        }
+
+        .review-subtitle {
+            font-size: 14px;
+            color: #8B9A8C;
+        }
+
+        .review-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            padding: 24px;
+            background: white;
+            border-bottom: 1px solid #F0EDE8;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 500;
+            color: #3D4A3E;
+            margin-bottom: 4px;
+        }
+
+        .stat-value.highlight {
+            color: #7A9A7E;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #A8B0A8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .review-body {
+            padding: 32px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .inbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .inbox-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #5C5850;
+        }
+
+        .inbox-progress {
+            font-size: 13px;
+            color: #A8B0A8;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .review-tx-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .review-tx-merchant {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3D4A3E;
+            margin-bottom: 4px;
+        }
+
+        .review-tx-raw {
+            font-size: 11px;
+            color: #C8D0C8;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .review-tx-amount {
+            font-size: 24px;
+            font-weight: 500;
+            color: #5C5850;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .suggestion-section {
+            margin-bottom: 20px;
+        }
+
+        .suggestion-label {
+            font-size: 11px;
+            color: #A8B0A8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .suggested-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #7A9A7E;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .suggested-btn:hover {
+            background: #6B8B6F;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(122, 154, 126, 0.3);
+        }
+
+        .suggested-btn .confidence {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .alternatives {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .alt-btn {
+            background: #F8F6F2;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #6B6860;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .alt-btn:hover {
+            background: #F0EDE8;
+        }
+
+        .review-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #F0EDE8;
+        }
+
+        .skip-btn {
+            background: none;
+            border: none;
+            font-size: 13px;
+            color: #A8B0A8;
+            cursor: pointer;
+        }
+
+        .skip-btn:hover {
+            color: #8B9A8C;
+        }
+
+        .remember-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #6B6860;
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 24px;
+            background: #7A9A7E;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            right: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        /* ==================== */
+        /* DESIGN NOTES         */
+        /* ==================== */
+
+        .notes-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .notes-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #3D4A3E;
+            margin-bottom: 24px;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .note-card {
+            background: #F8F6F2;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .note-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #8B9A8C;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .note-text {
+            font-size: 14px;
+            color: #5C5850;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="page-title">Enough — Mac Design Exploration</div>
+        <h1>Female-Forward, Universal Appeal</h1>
+        <p class="page-description">Exploring color palettes and UI patterns that feel warm, approachable, and lifestyle-oriented—more like a wellness app than a finance tool. Soft backgrounds, organic shapes, sage and blush tones instead of "money green" or corporate blue.</p>
+    </header>
+
+    <!-- ==================== -->
+    <!-- COLOR PALETTES       -->
+    <!-- ==================== -->
+    <section class="palette-section">
+        <div class="section-label">Color Palette Options</div>
+
+        <div class="palettes-grid">
+            <!-- Sage & Cream -->
+            <div class="palette-card">
+                <div class="palette-preview palette-sage">
+                    <div class="palette-name">January 2026</div>
+                    <div>
+                        <div class="palette-amount">$4,847</div>
+                        <div class="palette-label">of $7,083 monthly enough</div>
+                    </div>
+                </div>
+                <div class="palette-swatches">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #FFFBF5"></div>
+                        <span class="swatch-label">Cream</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #7A9A7E"></div>
+                        <span class="swatch-label">Sage</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #C49E7A"></div>
+                        <span class="swatch-label">Warm</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #3D4A3E"></div>
+                        <span class="swatch-label">Text</span>
+                    </div>
+                </div>
+                <div class="palette-info">
+                    <div class="palette-title">Sage & Cream</div>
+                    <div class="palette-desc">Grounded and organic. The sage feels like growth without "money green" associations. Warm cream background creates softness. This is the primary recommendation.</div>
+                </div>
+            </div>
+
+            <!-- Blush & Warmth -->
+            <div class="palette-card">
+                <div class="palette-preview palette-blush">
+                    <div class="palette-name">January 2026</div>
+                    <div>
+                        <div class="palette-amount">$4,847</div>
+                        <div class="palette-label">of $7,083 monthly enough</div>
+                    </div>
+                </div>
+                <div class="palette-swatches">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #FFF9F7"></div>
+                        <span class="swatch-label">Blush</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #C4918A"></div>
+                        <span class="swatch-label">Rose</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #D4A574"></div>
+                        <span class="swatch-label">Gold</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #5C4A4A"></div>
+                        <span class="swatch-label">Text</span>
+                    </div>
+                </div>
+                <div class="palette-info">
+                    <div class="palette-title">Blush & Warmth</div>
+                    <div class="palette-desc">Soft and feminine without being overtly "pink." The dusty rose primary is sophisticated. Could feel too gendered for universal appeal though.</div>
+                </div>
+            </div>
+
+            <!-- Lavender & Soft -->
+            <div class="palette-card">
+                <div class="palette-preview palette-lavender">
+                    <div class="palette-name">January 2026</div>
+                    <div>
+                        <div class="palette-amount">$4,847</div>
+                        <div class="palette-label">of $7,083 monthly enough</div>
+                    </div>
+                </div>
+                <div class="palette-swatches">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #F9F8FC"></div>
+                        <span class="swatch-label">Soft</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #9890B0"></div>
+                        <span class="swatch-label">Lavender</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #C9A86C"></div>
+                        <span class="swatch-label">Gold</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #4A4A5C"></div>
+                        <span class="swatch-label">Text</span>
+                    </div>
+                </div>
+                <div class="palette-info">
+                    <div class="palette-title">Lavender & Soft</div>
+                    <div class="palette-desc">Calm and contemplative. Lavender has wellness associations (calm, meditation). Could work for the "awareness" angle. Slightly cooler than the others.</div>
+                </div>
+            </div>
+
+            <!-- Warm Sand -->
+            <div class="palette-card">
+                <div class="palette-preview palette-sand">
+                    <div class="palette-name">January 2026</div>
+                    <div>
+                        <div class="palette-amount">$4,847</div>
+                        <div class="palette-label">of $7,083 monthly enough</div>
+                    </div>
+                </div>
+                <div class="palette-swatches">
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #FFFCF8"></div>
+                        <span class="swatch-label">Cream</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #C49E7A"></div>
+                        <span class="swatch-label">Terra</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #8BA888"></div>
+                        <span class="swatch-label">Sage</span>
+                    </div>
+                    <div class="swatch">
+                        <div class="swatch-color" style="background: #5C5245"></div>
+                        <span class="swatch-label">Text</span>
+                    </div>
+                </div>
+                <div class="palette-info">
+                    <div class="palette-title">Warm Sand</div>
+                    <div class="palette-desc">Earthy and grounded. The terracotta primary feels warm and intentional. Very neutral, appeals broadly. Similar to some meditation apps.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- MAC DASHBOARD        -->
+    <!-- ==================== -->
+    <section class="mockup-section">
+        <div class="section-label">Mac App — Dashboard (Sage & Cream)</div>
+
+        <div class="mac-window">
+            <div class="window-titlebar">
+                <div class="traffic-lights">
+                    <div class="traffic-light red"></div>
+                    <div class="traffic-light yellow"></div>
+                    <div class="traffic-light green"></div>
+                </div>
+                <div class="window-title">Enough</div>
+                <div style="width: 52px;"></div>
+            </div>
+
+            <div class="window-content">
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Overview</div>
+                        <div class="sidebar-item active">
+                            <span class="sidebar-icon">📊</span>
+                            Dashboard
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-icon">📋</span>
+                            Transactions
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-icon">📈</span>
+                            Trends
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Accounts</div>
+                        <div class="sidebar-account">
+                            <span class="account-dot" style="background: #7A9A7E"></span>
+                            ING Joint
+                            <span class="account-balance">$12,450</span>
+                        </div>
+                        <div class="sidebar-account">
+                            <span class="account-dot" style="background: #C49E7A"></span>
+                            ING Personal
+                            <span class="account-balance">$3,210</span>
+                        </div>
+                        <div class="sidebar-account">
+                            <span class="account-dot" style="background: #9890B0"></span>
+                            Up Savings
+                            <span class="account-balance">$8,500</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Categories</div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-icon">🏠</span>
+                            Housing
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-icon">🛒</span>
+                            Groceries
+                        </div>
+                        <div class="sidebar-item">
+                            <span class="sidebar-icon">🍽️</span>
+                            Dining
+                        </div>
+                        <div class="sidebar-item" style="color: #A8B0A8;">
+                            <span class="sidebar-icon">+</span>
+                            All categories...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <div class="content-header">
+                        <div class="greeting">
+                            <h2>January 2026</h2>
+                            <div class="subtitle">Week 2 of 4 · 12 days remaining</div>
+                        </div>
+                        <button class="import-btn">
+                            <span>↓</span>
+                            Import Transactions
+                        </button>
+                    </div>
+
+                    <!-- Enough Card -->
+                    <div class="enough-card">
+                        <div class="enough-header">
+                            <span class="enough-label">This Month</span>
+                            <span class="enough-period">Your enough: $85,000/year</span>
+                        </div>
+
+                        <div class="enough-numbers">
+                            <span class="current-amount">$4,847</span>
+                            <span class="target-amount"><span>of</span> $7,083</span>
+                        </div>
+
+                        <div class="progress-container">
+                            <div class="progress-track">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-labels">
+                            <span class="progress-status">On track</span>
+                            <span class="progress-remaining">$2,236 remaining</span>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="categories-row">
+                        <div class="category-card">
+                            <div class="category-header">
+                                <span class="category-name">
+                                    <span class="category-dot" style="background: #E07A5F"></span>
+                                    Housing
+                                </span>
+                                <span class="category-trend">—</span>
+                            </div>
+                            <div class="category-amount">$2,100</div>
+                            <div class="category-compare">Same as usual</div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-header">
+                                <span class="category-name">
+                                    <span class="category-dot" style="background: #7A9A7E"></span>
+                                    Groceries
+                                </span>
+                                <span class="category-trend down">↓ 12%</span>
+                            </div>
+                            <div class="category-amount">$687</div>
+                            <div class="category-compare">vs $780 last month</div>
+                        </div>
+
+                        <div class="category-card">
+                            <div class="category-header">
+                                <span class="category-name">
+                                    <span class="category-dot" style="background: #C49E7A"></span>
+                                    Dining
+                                </span>
+                                <span class="category-trend up">↑ 23%</span>
+                            </div>
+                            <div class="category-amount">$412</div>
+                            <div class="category-compare">vs $335 last month</div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions -->
+                    <div class="transactions-section">
+                        <div class="transactions-header">
+                            <span class="transactions-title">Recent</span>
+                            <a href="#" class="transactions-link">See all →</a>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">🛒</div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">Coles</div>
+                                <div class="transaction-category">Groceries</div>
+                            </div>
+                            <div class="transaction-amount">-$127.45</div>
+                            <div class="transaction-date">Today</div>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">☕</div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">Frankie's Coffee</div>
+                                <div class="transaction-category">Dining</div>
+                            </div>
+                            <div class="transaction-amount">-$8.50</div>
+                            <div class="transaction-date">Today</div>
+                        </div>
+
+                        <div class="transaction-row">
+                            <div class="transaction-icon">⛽</div>
+                            <div class="transaction-details">
+                                <div class="transaction-merchant">BP Service Station</div>
+                                <div class="transaction-category">Transport</div>
+                            </div>
+                            <div class="transaction-amount">-$89.30</div>
+                            <div class="transaction-date">Yesterday</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- WEEKLY REVIEW MAC    -->
+    <!-- ==================== -->
+    <section class="mockup-section">
+        <div class="section-label">Mac App — Weekly Review Flow</div>
+
+        <div class="mac-window">
+            <div class="window-titlebar">
+                <div class="traffic-lights">
+                    <div class="traffic-light red"></div>
+                    <div class="traffic-light yellow"></div>
+                    <div class="traffic-light green"></div>
+                </div>
+                <div class="window-title">Weekly Review</div>
+                <div style="width: 52px;"></div>
+            </div>
+
+            <div class="review-content">
+                <div class="review-hero">
+                    <div class="review-week-label">Week of January 6–12</div>
+                    <h2 class="review-title">Your Week in Review</h2>
+                    <p class="review-subtitle">47 transactions imported from ING Joint</p>
+                </div>
+
+                <div class="review-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">$1,243</div>
+                        <div class="stat-label">Total Spent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">43</div>
+                        <div class="stat-label">Auto-Categorized</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value highlight">4</div>
+                        <div class="stat-label">Need Review</div>
+                    </div>
+                </div>
+
+                <div class="review-body">
+                    <div class="inbox-header">
+                        <span class="inbox-title">Categorize</span>
+                        <span class="inbox-progress">1 of 4</span>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-tx-top">
+                            <div>
+                                <div class="review-tx-merchant">Pioneer Honesty Box</div>
+                                <div class="review-tx-raw">PIONEER HONESTY BOX TASMANIA AU</div>
+                            </div>
+                            <div class="review-tx-amount">-$12.00</div>
+                        </div>
+
+                        <div class="suggestion-section">
+                            <div class="suggestion-label">Suggested</div>
+                            <button class="suggested-btn">
+                                <span class="category-dot" style="background: #7A9A7E; width: 8px; height: 8px; border-radius: 50%;"></span>
+                                Groceries
+                                <span class="confidence">92%</span>
+                            </button>
+
+                            <div class="alternatives">
+                                <button class="alt-btn">Shopping</button>
+                                <button class="alt-btn">Dining</button>
+                                <button class="alt-btn">Entertainment</button>
+                                <button class="alt-btn">Other...</button>
+                            </div>
+                        </div>
+
+                        <div class="review-actions">
+                            <button class="skip-btn">Skip for now</button>
+                            <label class="remember-toggle">
+                                <span>Always categorize this way</span>
+                                <div class="toggle-switch"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== -->
+    <!-- DESIGN NOTES         -->
+    <!-- ==================== -->
+    <section class="notes-section">
+        <h3 class="notes-title">Design Notes</h3>
+
+        <div class="notes-grid">
+            <div class="note-card">
+                <div class="note-label">Female-Forward, Universal Appeal</div>
+                <div class="note-text">Soft backgrounds, organic color palette, warm typography. Feels like a lifestyle/wellness app, not a finance tool. The sage green reads as growth and balance rather than "money." Rounded corners, generous whitespace, no sharp edges.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Mac-Native Patterns</div>
+                <div class="note-text">Sidebar navigation (accounts + categories), traffic light window controls, toolbar actions. Drag-and-drop for CSV import. Keyboard shortcuts (⌘I for import, ⌘1-3 for sections). Native file handling. Follows macOS Human Interface Guidelines.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Light Mode First</div>
+                <div class="note-text">The warm cream backgrounds and sage accents work best in light mode. Dark mode can come later, but the primary experience should feel airy and welcoming. Most female-forward apps (Day One, Things, Bear) lead with light themes.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">The Ritual Experience</div>
+                <div class="note-text">Weekly review is a distinct mode—not just another tab. It has its own flow: hero summary → quick stats → focused categorization inbox. Progress feels satisfying (1 of 4, 2 of 4...). Completion screen celebrates the ritual, shows trajectory.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Sidebar as Navigation</div>
+                <div class="note-text">Three main views: Dashboard (overview), Transactions (full list), Trends (historical). Accounts listed with balances—clicking filters to that account. Categories below for quick filtering. Collapsible on narrow windows.</div>
+            </div>
+
+            <div class="note-card">
+                <div class="note-label">Enough Number Prominence</div>
+                <div class="note-text">The enough number is always visible—in the enough card ("Your enough: $85,000/year") and the progress bar. It's not hidden in settings. Every view contextualizes spending against this anchor. The monthly breakdown ($7,083) is the primary reference.</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
